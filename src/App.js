@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-
+import './components/Todo.css'
 import list from './components/data'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
+import styled from 'styled-components';
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -56,7 +57,7 @@ class App extends React.Component {
  
   render() {
     return (
-      <div className="main-container">
+      <MainContainer>
 
          <div className="header">
            <h1>To Do List</h1>
@@ -68,9 +69,23 @@ class App extends React.Component {
            toggleTask={this.toggleTask}
            clearCompleted={this.clearCompleted}
          />
-      </div>
+      </MainContainer>
     );
   }
 }
 
 export default App;
+
+const MainContainer = styled.div`
+   border: 3px solid #009B77;
+   width: 50%;
+   padding: .5em;
+   box-shadow: 0px 0px 20px #060606;
+
+   h1{
+      text-align: center;
+      color: #009B77;
+      font-weight: 900;
+      font-size: 2.5rem;
+   }
+`;
