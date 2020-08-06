@@ -4,6 +4,7 @@ import React from "react";
 import Todo from "./Todo";
 import styled from 'styled-components';
 
+//**FUNCTIONAL COMPONENT**
 const ToDoList = ({ list, toggleTask, clearCompleted }) => {
   return (
     <ListContainer> 

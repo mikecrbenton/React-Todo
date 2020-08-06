@@ -3,16 +3,18 @@ import styled from 'styled-components';
 import './Todo.css';
 
 class ListForm extends React.Component {
-  //LIKE JAVA YOU CAN PASS INTO THE CONSTRUCTOR AND SUPER
-  constructor(props) {
-    super(props);
-    this.state = {
+  // In a class component, props are
+  // extended from React.Component?
+  constructor() {
+    super();
+    this.state = 
+    {
       todoText: ""
     };
   }
 
   changeHandler = e => {
-    //takes an object
+    //
     this.setState(
       {
          [e.target.name]: e.target.value
@@ -22,8 +24,10 @@ class ListForm extends React.Component {
 
   submitHandler = e => {
     e.preventDefault();
-    // cant just call props -> need "this"  addItem() is up in App.js
-    this.props.addTask(e, this.state.todoText);
+    // cant just call props -> need "this"
+    // because in a class component
+    // addItem() is up in App.js top level state
+    this.props.addTask(this.state.todoText);
     // reset clear form
     this.setState({ todoText: "" });
   };
@@ -35,9 +39,9 @@ class ListForm extends React.Component {
       <TodoForm onSubmit={this.submitHandler}>
         <input
           type="text"
-          value={this.state.todoText} //controlled input
           name="todoText"
-          onChange={this.changeHandler}
+          onChange={this.changeHandler} // setState
+          value={this.state.todoText} //controlled input - view State
         />
         <button type="submit">Add</button>
       </TodoForm>
@@ -55,7 +59,7 @@ justify-content: center;
    input{
       background-color: #2d2d37;
       border: none;
-      border-bottom: 3px solid #009B77;
+      border-bottom: 2px solid #009B77;
       color: whitesmoke;
       font-family: lato; 
       font-size: 1rem;

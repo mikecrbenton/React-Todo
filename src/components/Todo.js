@@ -2,8 +2,9 @@ import React from 'react';
 import './Todo.css'
 import styled from 'styled-components';
 
+//**FUNCTIONAL COMPONENT**
 const Todo = (props) => {
-   console.log(props)
+
   return (
     <TodoItem
       //toggles the classname 
