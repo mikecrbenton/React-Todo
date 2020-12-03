@@ -14,13 +14,13 @@ class ListForm extends React.Component {
   }
 
   changeHandler = e => {
-    //
-    this.setState(
-      {
-         [e.target.name]: e.target.value
-      }
-    );
-    };
+    
+    //this.setState( { [e.target.name]: e.target.value });};
+   this.setState({
+      ...this.state,
+      todoText: e.target.value,
+      });
+   };
 
   submitHandler = e => {
     e.preventDefault();
