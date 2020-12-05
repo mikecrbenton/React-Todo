@@ -14,6 +14,7 @@ import styled from 'styled-components';
 -- addTask(text)
 -- filterTask(text)
 -- clearCompleted()
+-- reset()
 */
 
 
@@ -25,8 +26,17 @@ class App extends React.Component {
      super();
      //APPLICATION LEVEL STATE
      this.state = {
-      list: list //list imported from data.js
+      list: JSON.parse( window.localStorage.getItem('token') ) //list //list imported from data.js
      };
+  }
+
+  componentDidMount(){
+      window.localStorage.setItem("token", JSON.stringify(this.state.list) )
+  }
+  componentDidUpdate(prevProps,prevState){    
+      if(prevState !== this.state){
+         window.localStorage.setItem("token", JSON.stringify(this.state.list) )
+      }
   }
 
   toggleTask = ( todoId ) => {
@@ -41,8 +51,8 @@ class App extends React.Component {
      list: this.state.list.map( (task) => {
        if (todoId === task.id) {
          return {
-           ...task, // sends the attributes of the object
-           completed: !task.completed // overrides the equivilant field in that object
+           ...task,                    // sends the attributes of the object
+           completed: !task.completed  // overrides the equivilant field in that object
          };
        }
        return task;
@@ -80,9 +90,16 @@ class App extends React.Component {
    });
  };
 
+ resetData = () => {
+    this.setState({
+       list: list // original list from data file
+    })
+ }
+
  
   render() {
     return (
+      <Page> 
       <MainContainer>
 
          <div className="header">
@@ -92,20 +109,25 @@ class App extends React.Component {
          </div>
 
          <TodoList
-           list={this.state.list} //passing state as props
+           list={this.state.list} //passing app level state as props
            toggleTask={this.toggleTask} // drilling down 
            clearCompleted={this.clearCompleted}
          />
       </MainContainer>
+      <ResetButton onClick={this.resetData}>Reset List</ResetButton>
+      </Page>
     );
   }
 }
 
 export default App;
-
+const Page = styled.div`
+   width: 100%;
+`;
 const MainContainer = styled.div`
    border: 3px solid #009B77;
    width: 50%;
+   margin: 0 auto;
    padding: .5em;
    box-shadow: 0px 0px 20px #060606;
 
@@ -115,4 +137,15 @@ const MainContainer = styled.div`
       font-weight: 900;
       font-size: 2.5rem;
    }
+`;
+const ResetButton = styled.button`
+   display: block;
+   margin: 1em auto 0;
+   background-color: #009B77;
+      border: 1px solid #009B77;
+      color: whitesmoke;
+      padding: .5em 2em;
+      font-size: 1rem;
+      font-weight: 700;
+      box-shadow: 0px 0px 20px #121212;
 `;
