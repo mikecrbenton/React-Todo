@@ -3,10 +3,19 @@ import ReactDOM from "react-dom";
 import './components/Todo.css'
 import list from './components/data'
 import TodoForm from './components/TodoForm'
+import FilterForm from './components/TodoFilter'
 import TodoList from './components/TodoList'
 import styled from 'styled-components';
 
 /* functional -> 'props' class -> 'this.props' */
+
+/* INDEX:
+-- toggleTask(id) 
+-- addTask(text)
+-- filterTask(text)
+-- clearCompleted()
+*/
+
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -57,6 +66,12 @@ class App extends React.Component {
    });
  };
 
+ filterTask = (filterText) => {
+   this.setState({
+     list: this.state.list.filter( (item) => { return item.task === filterText })
+   });
+ }
+
  clearCompleted = e => {
    e.preventDefault();
    // if item is purchased (item.purchased is true) then filter out
@@ -72,7 +87,8 @@ class App extends React.Component {
 
          <div className="header">
            <h1>To Do List</h1>
-           <TodoForm addTask={this.addTask} />
+           < TodoForm addTask={this.addTask} />
+           < FilterForm filterTask={this.filterTask} />
          </div>
 
          <TodoList
