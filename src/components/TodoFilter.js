@@ -2,14 +2,12 @@ import React from "react";
 import styled from 'styled-components';
 import './Todo.css';
 
-class ListForm extends React.Component {
-  // In a class component, props are
-  // extended from React.Component?
+class FilterForm extends React.Component {
   constructor() {
     super();
     this.state = 
     {
-      todoText: ""
+      filterText: ""
     };
   }
 
@@ -21,42 +19,33 @@ class ListForm extends React.Component {
       });
   };
 
-   // this.setState({
-   //    ...this.state,
-   //    todoText: e.target.value,
-   //    });
-   // };
-
   submitHandler = e => {
     e.preventDefault();
-    // cant just call props -> need "this"
-    // because in a class component
-    // addItem() is up in App.js top level state
-    this.props.addTask(this.state.todoText);
+
+    this.props.filterTask(this.state.filterText);
     // reset clear form
-    this.setState({ todoText: ""});
+    this.setState({ filterText: ""});
   };
 
-  //EVERY CLASS NEEDS A RENDER!
   render() {
      
     return (
-      <TodoForm onSubmit={this.submitHandler}>
+      <SearchForm onSubmit={this.submitHandler}>
         <input
           type="text"
-          name="todoText"
+          name="filterText"
           onChange={this.changeHandler} // setState
-          value={this.state.todoText} //controlled input - view State
+          value={this.state.filterText} //controlled input - view State
         />
-        <button type="submit">Add</button>
-      </TodoForm>
+        <button type="submit" >Search</button>
+      </SearchForm>
     );
   }
 }
 
-export default ListForm;
+export default FilterForm;
 
-const TodoForm = styled.form`
+const SearchForm = styled.form`
 margin-bottom: 1em;
 display: flex;
 justify-content: center;
